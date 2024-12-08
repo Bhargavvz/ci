@@ -1,14 +1,17 @@
-const express=require('express');
-const app=express();
-const port=3000;
-app.get("/",(req,res)=>
+FROM node:14
 
-{
-    res.send("<h1>hello</h1>");
+# Set the working directory
+WORKDIR /usr/src/app
 
-});
-app.listen(port,()=>
-{
-onsole.log('app listeneing to the port ${port}');
-}
-)
+# Copy package.json and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port your app will run on
+EXPOSE 3000
+
+# Start the application
+CMD ["node", "App.js"]
